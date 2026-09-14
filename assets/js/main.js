@@ -202,14 +202,32 @@
       colorPriceNote.textContent = version.vatNote;
     }
 
-    // Image change with quick opacity transition
+    // Image change with 3D turntable transition
     if (colorImg) {
-      colorImg.style.opacity = '0.3';
-      setTimeout(() => {
-        colorImg.src = activeColor.image;
-        colorImg.alt = activeColor.alt;
-        colorImg.style.opacity = '1';
-      }, 150);
+      if (typeof gsap !== 'undefined' && window.innerWidth >= 992) {
+        gsap.to(colorImg, {
+          rotationY: -15,
+          scale: 0.94,
+          opacity: 0.2,
+          duration: 0.2,
+          ease: "power2.in",
+          onComplete: () => {
+            colorImg.src = activeColor.image;
+            colorImg.alt = activeColor.alt;
+            gsap.fromTo(colorImg, 
+              { rotationY: 15, scale: 0.94, opacity: 0.2 },
+              { rotationY: 0, scale: 1, opacity: 1, duration: 0.45, ease: "power2.out" }
+            );
+          }
+        });
+      } else {
+        colorImg.style.opacity = '0.3';
+        setTimeout(() => {
+          colorImg.src = activeColor.image;
+          colorImg.alt = activeColor.alt;
+          colorImg.style.opacity = '1';
+        }, 150);
+      }
     }
 
     // Render swatches
@@ -324,7 +342,11 @@
     if (calcTaxEl) calcTaxEl.textContent = formatVND(registrationTax);
     if (calcPlateEl) calcPlateEl.textContent = formatVND(plateFee);
     if (calcInsuranceEl) calcInsuranceEl.textContent = formatVND(insuranceFee);
-    if (calcTotalEl) calcTotalEl.textContent = formatVND(totalOnTheRoad);
+    if (typeof window.animatePriceCounter === 'function') {
+      window.animatePriceCounter(totalOnTheRoad);
+    } else {
+      if (calcTotalEl) calcTotalEl.textContent = formatVND(totalOnTheRoad);
+    }
 
     // Trả góp
     if (calcDownPaymentSelect && calcTermSelect && calcLoanNoteEl) {

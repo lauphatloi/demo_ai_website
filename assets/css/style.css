@@ -25,17 +25,17 @@
   --color-border: #e2e8f0;
   --color-border-dark: #cbd5e1;
   
-  /* Typography Scale */
+  /* Typography Scale - Refined & Elegant for Modern Automotive Web */
   --font-base: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --font-scale: 1;                 /* Scalable for Accessibility Font-Size toggle */
-  --font-size-xs: calc(0.8125rem * var(--font-scale));
-  --font-size-sm: calc(0.9375rem * var(--font-scale));
-  --font-size-base: calc(1.0625rem * var(--font-scale)); /* 17px base for easier reading */
-  --font-size-lg: calc(1.25rem * var(--font-scale));
-  --font-size-xl: calc(1.5rem * var(--font-scale));
-  --font-size-2xl: calc(1.875rem * var(--font-scale));
-  --font-size-3xl: calc(2.375rem * var(--font-scale));
-  --font-size-4xl: calc(3rem * var(--font-scale));
+  --font-size-xs: calc(0.75rem * var(--font-scale));   /* 12px */
+  --font-size-sm: calc(0.875rem * var(--font-scale));  /* 14px */
+  --font-size-base: calc(1rem * var(--font-scale));     /* 16px - Refined, balanced reading */
+  --font-size-lg: calc(1.125rem * var(--font-scale));  /* 18px */
+  --font-size-xl: calc(1.375rem * var(--font-scale));  /* 22px */
+  --font-size-2xl: calc(1.65rem * var(--font-scale));  /* 26px */
+  --font-size-3xl: calc(2.15rem * var(--font-scale));  /* 34px */
+  --font-size-4xl: calc(2.75rem * var(--font-scale));  /* 44px */
   
   /* Radii & Shadows */
   --radius-sm: 8px;
@@ -50,7 +50,7 @@
 
   /* Layout */
   --container-max: 1240px;
-  --header-height: 76px;
+  --header-height: 72px;
   --transition-fast: 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   --transition-normal: 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -604,110 +604,301 @@ button {
 }
 
 /* ==========================================================================
-   SCROLLYTELLING SHOWCASE (Desktop GSAP Pin & Mobile Cards)
+   SCROLLYTELLING THEATRE (PINNED DUAL-CHAMBER STAGE)
    ========================================================================== */
-.showcase-section {
-  padding: 70px 0;
-  background-color: #ffffff;
+.scrolly-theatre {
   position: relative;
+  background: #ffffff;
+  padding: 60px 0;
 }
 
-/* On Desktop, this becomes a GSAP pinned Scrollytelling stage */
-.scrolly-container {
-  position: relative;
-}
-
-.feature-cards-grid {
+/* Mobile defaults: clean responsive stacked cards */
+.theatre-inner {
   display: flex;
   flex-direction: column;
   gap: 32px;
-}
-
-.feature-card {
-  background: var(--color-bg-surface);
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  border: 1px solid var(--color-border);
-  display: grid;
-  grid-template-columns: 1fr;
-  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
-}
-
-.feature-card:hover {
-  box-shadow: var(--shadow-md);
-}
-
-.feature-card-media {
-  position: relative;
-  aspect-ratio: 1500 / 794;
-  overflow: hidden;
-  background: #0f172a;
-}
-
-.feature-card-media img {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.6s ease;
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 20px;
 }
 
-.feature-card:hover .feature-card-media img {
-  transform: scale(1.03);
-}
-
-.feature-card-content {
-  padding: 30px 24px;
+.theatre-nav-indicator {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.feature-num {
-  font-size: var(--font-size-sm);
-  font-weight: 800;
-  color: var(--color-primary);
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  margin-bottom: 10px;
-}
-
-.feature-title {
-  font-size: var(--font-size-2xl);
-  font-weight: 800;
-  color: var(--color-text-title);
-  line-height: 1.3;
-  margin-bottom: 14px;
-}
-
-.feature-desc {
-  font-size: var(--font-size-base);
-  color: var(--color-text-body);
-  line-height: 1.7;
+  align-items: center;
+  gap: 16px;
   margin-bottom: 20px;
 }
 
-.feature-bullets {
+.theatre-step-count {
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--color-primary);
+  letter-spacing: 0.05em;
+}
+
+.theatre-progress-rail {
+  flex: 1;
+  max-width: 200px;
+  height: 4px;
+  background: #e2e8f0;
+  border-radius: 99px;
+  overflow: hidden;
+  position: relative;
+}
+
+.theatre-progress-fill {
+  height: 100%;
+  width: 20%;
+  background: var(--color-primary);
+  border-radius: 99px;
+  transition: width 0.3s ease;
+}
+
+.theatre-step {
+  display: none;
+}
+
+.theatre-step.active {
+  display: flex;
+  flex-direction: column;
+}
+
+.theatre-badge {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--color-primary);
+  margin-bottom: 8px;
+}
+
+.theatre-title {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--color-text-title);
+  line-height: 1.25;
+  margin-bottom: 12px;
+  letter-spacing: -0.02em;
+}
+
+.theatre-desc {
+  font-size: 0.95rem;
+  color: var(--color-text-body);
+  line-height: 1.6;
+  margin-bottom: 18px;
+}
+
+.theatre-bullets {
   list-style: none;
   display: flex;
   flex-direction: column;
   gap: 10px;
+  margin-bottom: 20px;
 }
 
-.feature-bullets li {
+.theatre-bullets li {
   display: flex;
   align-items: flex-start;
   gap: 10px;
-  font-size: var(--font-size-base);
+  font-size: 0.92rem;
   color: var(--color-text-title);
   font-weight: 600;
 }
 
-.feature-bullets li svg {
-  width: 22px;
-  height: 22px;
-  color: #16a34a; /* Green check */
+.theatre-bullets li svg {
+  width: 18px;
+  height: 18px;
+  color: #16a34a;
   flex-shrink: 0;
-  margin-top: 2px;
+  margin-top: 3px;
+}
+
+.theatre-stats-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--color-bg-surface);
+  padding: 8px 16px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  align-self: flex-start;
+}
+
+.theatre-pill-val {
+  font-size: 1.25rem;
+  font-weight: 900;
+  color: var(--color-primary);
+}
+
+.theatre-pill-lbl {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  font-weight: 600;
+}
+
+.theatre-viewport {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: #0f172a;
+  box-shadow: var(--shadow-lg);
+}
+
+.theatre-canvas {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.theatre-slide {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s ease;
+}
+
+.theatre-slide.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.theatre-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.theatre-svg-overlay {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 68px;
+  height: 68px;
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 50%;
+  padding: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  border: 1px solid rgba(255,255,255,0.15);
+}
+
+.theatre-svg-overlay svg {
+  width: 100%;
+  height: 100%;
+  color: var(--color-primary);
+}
+
+/* ==========================================================================
+   HORIZONTAL SCROLL SECTION (CONTAINER ANIMATION)
+   ========================================================================== */
+.horizontal-showcase-section {
+  position: relative;
+  background: #090d16;
+  color: #ffffff;
+  overflow: hidden;
+  padding: 60px 0;
+}
+
+.horizontal-pin-box {
+  width: 100%;
+}
+
+.horizontal-heading-bar {
+  max-width: var(--container-max);
+  margin: 0 auto 28px auto;
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.horizontal-section-title {
+  font-size: 1.85rem;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: -0.02em;
+}
+
+.horizontal-scroll-hint {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #94a3b8;
+  letter-spacing: 0.05em;
+}
+
+.horizontal-track-container {
+  width: 100%;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+
+.horizontal-track {
+  display: flex;
+  gap: 20px;
+  padding: 10px 20px 30px 20px;
+  width: max-content;
+}
+
+.horizontal-card {
+  flex: 0 0 320px;
+  scroll-snap-align: start;
+  background: #141b2d;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  display: flex;
+  flex-direction: column;
+}
+
+.horizontal-card-media {
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  position: relative;
+  background: #020617;
+}
+
+.horizontal-card-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.horizontal-card-info {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.horiz-card-num {
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: #f87171;
+  letter-spacing: 0.1em;
+}
+
+.horizontal-card-info h3 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.horizontal-card-info p {
+  font-size: 0.85rem;
+  color: #94a3b8;
+  line-height: 1.5;
 }
 
 /* ==========================================================================
@@ -1557,26 +1748,137 @@ button {
     grid-template-columns: repeat(4, 1fr);
   }
 
-  /* Desktop Feature Cards Alternating Layout */
-  .feature-card {
-    grid-template-columns: 1.15fr 1fr;
-    min-height: 440px;
+  /* Desktop Scrollytelling Pinned Theatre */
+  .scrolly-theatre {
+    height: 100vh;
+    min-height: 700px;
+    padding: 0;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
   }
 
-  .feature-card:nth-child(even) {
-    grid-template-columns: 1fr 1.15fr;
+  .theatre-inner {
+    display: grid;
+    grid-template-columns: 0.9fr 1.15fr;
+    gap: 60px;
+    align-items: center;
+    position: relative;
+    padding: 0 40px;
   }
 
-  .feature-card:nth-child(even) .feature-card-media {
-    order: 2;
+  .theatre-narrative {
+    position: relative;
+    min-height: 380px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 
-  .feature-card:nth-child(even) .feature-card-content {
-    order: 1;
+  .theatre-progress-rail {
+    max-width: 180px;
   }
 
-  .feature-card-content {
-    padding: 44px 50px;
+  .theatre-steps-wrapper {
+    position: relative;
+    width: 100%;
+    height: 260px;
+  }
+
+  .theatre-step {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    visibility: hidden;
+    transform-origin: left center;
+  }
+
+  .theatre-step.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .theatre-title {
+    font-size: 2.15rem;
+  }
+
+  .theatre-desc {
+    font-size: 0.95rem;
+    max-width: 460px;
+  }
+
+  .theatre-viewport {
+    perspective: 1400px;
+    aspect-ratio: 16 / 10;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+  }
+
+  .theatre-canvas {
+    transform-style: preserve-3d;
+  }
+
+  .theatre-slide {
+    opacity: 0;
+    visibility: hidden;
+    transform-origin: center center;
+  }
+
+  .theatre-slide.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  /* Desktop Horizontal Pinned Showcase */
+  .horizontal-showcase-section {
+    height: 100vh;
+    min-height: 720px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  .horizontal-pin-box {
+    width: 100%;
+    padding: 0;
+  }
+
+  .horizontal-heading-bar {
+    padding: 0 60px;
+    margin-bottom: 36px;
+  }
+
+  .horizontal-section-title {
+    font-size: 2.35rem;
+  }
+
+  .horizontal-track-container {
+    overflow: visible;
+  }
+
+  .horizontal-track {
+    display: flex;
+    gap: 40px;
+    padding-left: 60px;
+    width: max-content;
+  }
+
+  .horizontal-card {
+    flex: 0 0 460px;
+  }
+
+  .horizontal-card-media {
+    height: 300px;
+  }
+
+  .horizontal-card-media img {
+    width: 125%;
+    height: 100%;
+    object-fit: cover;
   }
 
   .color-stage {
