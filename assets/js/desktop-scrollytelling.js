@@ -54,7 +54,7 @@
   // 2. Animated Odometer Counter for Price Calculator
   const calcTotalEl = document.getElementById('calc-total');
   if (calcTotalEl) {
-    const priceWatcher = { val: 51992963 };
+    const priceWatcher = { val: 2978927 };
 
     window.animatePriceCounter = function (targetNum) {
       gsap.to(priceWatcher, {
@@ -62,7 +62,7 @@
         duration: 0.55,
         ease: "power2.out",
         onUpdate: () => {
-          calcTotalEl.textContent = new Intl.NumberFormat('vi-VN').format(Math.round(priceWatcher.val)) + ' đ';
+          calcTotalEl.textContent = new Intl.NumberFormat('vi-VN').format(Math.round(priceWatcher.val)) + ' đ / tháng';
         }
       });
     };

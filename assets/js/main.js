@@ -260,9 +260,13 @@
       `).join('');
     }
 
-    // Update CTA text
+    // Update CTA text to hotline call
     if (btnSelectThisColor) {
-      btnSelectThisColor.textContent = `Nhận báo giá lăn bánh ${version.name}`;
+      btnSelectThisColor.innerHTML = `
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+        <span>Báo Giá ${version.name}: Gọi 0329 701 818</span>
+      `;
+      btnSelectThisColor.setAttribute('href', 'tel:0329701818');
     }
   }
 
@@ -274,107 +278,60 @@
     });
   });
 
-  if (btnSelectThisColor) {
-    btnSelectThisColor.addEventListener('click', () => {
-      const calcSelect = document.getElementById('calc-version');
-      if (calcSelect) {
-        calcSelect.value = currentVersionKey;
-        calculatePrice();
-      }
-      const calcSection = document.getElementById('gia-gop') || document.getElementById('gia-lan-banh');
-      if (calcSection) {
-        calcSection.scrollIntoView({ behavior: 'smooth' });
-      }
-    });
-  }
-
   // Initial render of color section
   renderColorSection('dac-biet', 0);
 
-  // --- 5. ON-THE-ROAD PRICE & LOAN CALCULATOR ---
+  // --- 5. LOAN & INSTALLMENT CALCULATOR ---
   const calcVersionSelect = document.getElementById('calc-version');
-  const calcAreaSelect = document.getElementById('calc-area');
   const calcDownPaymentSelect = document.getElementById('calc-down-payment');
   const calcTermSelect = document.getElementById('calc-term');
+  const calcPackageSelect = document.getElementById('calc-package');
 
   const calcBasePriceEl = document.getElementById('calc-base-price');
-  const calcTaxEl = document.getElementById('calc-tax');
-  const calcPlateEl = document.getElementById('calc-plate');
-  const calcInsuranceEl = document.getElementById('calc-insurance');
+  const calcDownLabelEl = document.getElementById('calc-down-label');
+  const calcDownAmountEl = document.getElementById('calc-down-amount');
+  const calcLoanAmountEl = document.getElementById('calc-loan-amount');
+  const calcTermLabelEl = document.getElementById('calc-term-label');
   const calcTotalEl = document.getElementById('calc-total');
-  const calcLoanNoteEl = document.getElementById('calc-loan-note');
 
   function formatVND(num) {
     return new Intl.NumberFormat('vi-VN').format(Math.round(num)) + ' đ';
   }
 
   function calculatePrice() {
-    if (!calcVersionSelect || !calcAreaSelect) return;
+    if (!calcVersionSelect || !calcDownPaymentSelect || !calcTermSelect) return;
 
     const versionKey = calcVersionSelect.value;
-    const area = calcAreaSelect.value;
     const basePrice = vehicleData[versionKey] ? vehicleData[versionKey].price : 45644727;
+    const downPercent = parseFloat(calcDownPaymentSelect.value) / 100;
+    const termMonths = parseInt(calcTermSelect.value, 10);
+    const ratePercent = calcPackageSelect ? parseFloat(calcPackageSelect.value) / 100 : 0.0099;
 
-    // Lệ phí trước bạ
-    // Khu vực 1 & 2: 5% giá niêm yết; Khu vực 3 (huyện): 2%
-    let taxRate = 0.05;
-    let plateFee = 4000000;
+    const downAmount = basePrice * downPercent;
+    const loanAmount = basePrice - downAmount;
 
-    if (area === 'kv1') {
-      // Hà Nội & TP.HCM
-      taxRate = 0.05;
-      plateFee = basePrice > 40000000 ? 4000000 : 2000000;
-    } else if (area === 'kv2') {
-      // Thành phố, thị xã thuộc tỉnh
-      taxRate = 0.05;
-      plateFee = 800000;
-    } else {
-      // Huyện, xã
-      taxRate = 0.02;
-      plateFee = 50000;
-    }
+    // Giả định lãi suất tham khảo theo dư nợ ban đầu
+    const monthlyPrincipal = loanAmount / termMonths;
+    const monthlyInterest = loanAmount * ratePercent;
+    const monthlyPayment = monthlyPrincipal + monthlyInterest;
 
-    const registrationTax = basePrice * taxRate;
-    const insuranceFee = 66000; // Bảo hiểm trách nhiệm dân sự bắt buộc
-    const totalOnTheRoad = basePrice + registrationTax + plateFee + insuranceFee;
-
-    // Render results
     if (calcBasePriceEl) calcBasePriceEl.textContent = formatVND(basePrice);
-    if (calcTaxEl) calcTaxEl.textContent = formatVND(registrationTax);
-    if (calcPlateEl) calcPlateEl.textContent = formatVND(plateFee);
-    if (calcInsuranceEl) calcInsuranceEl.textContent = formatVND(insuranceFee);
+    if (calcDownLabelEl) calcDownLabelEl.textContent = `${Math.round(downPercent * 100)}%`;
+    if (calcDownAmountEl) calcDownAmountEl.textContent = formatVND(downAmount);
+    if (calcLoanAmountEl) calcLoanAmountEl.textContent = formatVND(loanAmount);
+    if (calcTermLabelEl) calcTermLabelEl.textContent = `${termMonths} Tháng`;
+
     if (typeof window.animatePriceCounter === 'function') {
-      window.animatePriceCounter(totalOnTheRoad);
+      window.animatePriceCounter(monthlyPayment);
     } else {
-      if (calcTotalEl) calcTotalEl.textContent = formatVND(totalOnTheRoad);
-    }
-
-    // Trả góp
-    if (calcDownPaymentSelect && calcTermSelect && calcLoanNoteEl) {
-      const downPercent = parseFloat(calcDownPaymentSelect.value) / 100;
-      const termMonths = parseInt(calcTermSelect.value, 10);
-      const downAmount = basePrice * downPercent;
-      const loanAmount = basePrice - downAmount;
-
-      // Giả định lãi suất tham khảo ~ 0.99% / tháng theo dư nợ ban đầu
-      const monthlyInterest = loanAmount * 0.0099;
-      const monthlyPrincipal = loanAmount / termMonths;
-      const monthlyPayment = monthlyPrincipal + monthlyInterest;
-
-      calcLoanNoteEl.innerHTML = `
-        <strong>Ước tính mua trả góp lãi suất ưu đãi:</strong><br>
-        • Trả trước ${(downPercent * 100)}%: <strong>${formatVND(downAmount)}</strong><br>
-        • Vay lại: <strong>${formatVND(loanAmount)}</strong> trong <strong>${termMonths} tháng</strong><br>
-        • Góp mỗi tháng khoảng: <strong style="color:#ff2a4b; font-size:1.15em; font-family:var(--font-mono);">${formatVND(monthlyPayment)} / tháng</strong><br>
-        <span style="font-size: 0.88em; color: #94a3b8;">(Hỗ trợ chỉ cần CCCD gắn chip, duyệt hồ sơ 15 phút, không cần chứng minh thu nhập)</span>
-      `;
+      if (calcTotalEl) calcTotalEl.textContent = formatVND(monthlyPayment) + ' / tháng';
     }
   }
 
   if (calcVersionSelect) calcVersionSelect.addEventListener('change', calculatePrice);
-  if (calcAreaSelect) calcAreaSelect.addEventListener('change', calculatePrice);
   if (calcDownPaymentSelect) calcDownPaymentSelect.addEventListener('change', calculatePrice);
   if (calcTermSelect) calcTermSelect.addEventListener('change', calculatePrice);
+  if (calcPackageSelect) calcPackageSelect.addEventListener('change', calculatePrice);
 
   // Initial calculation
   calculatePrice();

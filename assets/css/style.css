@@ -323,47 +323,83 @@ button {
   display: flex;
   align-items: center;
   gap: 10px;
+  text-decoration: none;
+  flex-shrink: 0;
 }
 
-.honda-wing {
-  width: 42px;
-  height: 42px;
-  color: var(--color-primary);
+.site-logo-img {
+  height: 36px;
+  width: auto;
+  object-fit: contain;
+  display: block;
   flex-shrink: 0;
+}
+
+.brand-divider {
+  width: 1px;
+  height: 26px;
+  background-color: var(--color-border);
+  flex-shrink: 0;
+}
+
+.footer-logo-card {
+  display: inline-flex;
+  align-items: center;
+  background: #ffffff;
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  margin-bottom: 14px;
+}
+
+.footer-logo-img {
+  height: 38px;
+  width: auto;
+  object-fit: contain;
+  display: block;
+}
+
+.drawer-logo-img {
+  height: 32px;
+  width: auto;
+  object-fit: contain;
+  display: block;
 }
 
 .brand-text {
   display: flex;
   flex-direction: column;
+  flex-shrink: 0;
 }
 
 .brand-name {
-  font-size: 1.15rem;
+  font-size: 1.05rem;
   font-weight: 900;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.05em;
   color: var(--color-text-title);
   line-height: 1;
 }
 
 .model-name {
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   font-weight: 800;
   color: var(--color-primary);
-  letter-spacing: 0.12em;
+  letter-spacing: 0.1em;
 }
 
 .nav-links {
   display: none;
   list-style: none;
-  gap: 24px;
+  gap: 18px;
+  align-items: center;
 }
 
 .nav-link {
-  font-size: var(--text-sm);
+  font-size: 0.86rem;
   font-weight: 600;
   color: var(--color-text-body);
   padding: 6px 0;
   position: relative;
+  white-space: nowrap;
 }
 
 .nav-link:hover, .nav-link.active {
@@ -1642,6 +1678,15 @@ button {
 }
 
 @media (max-width: 640px) {
+  .site-logo-img {
+    height: 36px;
+  }
+  .brand-name {
+    font-size: 1rem;
+  }
+  .model-name {
+    font-size: 0.68rem;
+  }
   .hero-highlights-grid {
     grid-template-columns: 1fr;
   }
