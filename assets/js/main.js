@@ -164,7 +164,7 @@
   let currentVersionKey = 'dac-biet';
   let currentColorIndex = 0;
 
-  const versionTabs = document.querySelectorAll('.version-tab');
+  const versionTabs = document.querySelectorAll('.version-tab, .version-tab-btn');
   const colorImg = document.getElementById('selected-vehicle-img');
   const colorBadge = document.getElementById('color-badge');
   const colorTitle = document.getElementById('color-version-title');
@@ -202,22 +202,23 @@
       colorPriceNote.textContent = version.vatNote;
     }
 
-    // Image change with 3D turntable transition
+    // Image change transition
     if (colorImg) {
-      if (typeof gsap !== 'undefined' && window.innerWidth >= 992) {
+      if (typeof gsap !== 'undefined') {
         gsap.to(colorImg, {
-          rotationY: -15,
-          scale: 0.94,
           opacity: 0.2,
-          duration: 0.2,
+          scale: 0.98,
+          duration: 0.16,
           ease: "power2.in",
           onComplete: () => {
             colorImg.src = activeColor.image;
             colorImg.alt = activeColor.alt;
-            gsap.fromTo(colorImg, 
-              { rotationY: 15, scale: 0.94, opacity: 0.2 },
-              { rotationY: 0, scale: 1, opacity: 1, duration: 0.45, ease: "power2.out" }
-            );
+            gsap.to(colorImg, {
+              opacity: 1,
+              scale: 1,
+              duration: 0.3,
+              ease: "power2.out"
+            });
           }
         });
       } else {
@@ -226,7 +227,7 @@
           colorImg.src = activeColor.image;
           colorImg.alt = activeColor.alt;
           colorImg.style.opacity = '1';
-        }, 150);
+        }, 120);
       }
     }
 
