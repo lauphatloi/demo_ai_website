@@ -364,7 +364,7 @@
         <strong>Ước tính mua trả góp lãi suất ưu đãi:</strong><br>
         • Trả trước ${(downPercent * 100)}%: <strong>${formatVND(downAmount)}</strong><br>
         • Vay lại: <strong>${formatVND(loanAmount)}</strong> trong <strong>${termMonths} tháng</strong><br>
-        • Góp mỗi tháng khoảng: <strong style="color:#f87171; font-size:1.15em;">${formatVND(monthlyPayment)} / tháng</strong><br>
+        • Góp mỗi tháng khoảng: <strong style="color:#ff2a4b; font-size:1.15em; font-family:var(--font-mono);">${formatVND(monthlyPayment)} / tháng</strong><br>
         <span style="font-size: 0.88em; color: #94a3b8;">(Hỗ trợ chỉ cần CCCD gắn chip, duyệt hồ sơ 15 phút, không cần chứng minh thu nhập)</span>
       `;
     }
