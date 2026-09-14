@@ -280,7 +280,7 @@
         calcSelect.value = currentVersionKey;
         calculatePrice();
       }
-      const calcSection = document.getElementById('gia-lan-banh');
+      const calcSection = document.getElementById('gia-gop') || document.getElementById('gia-lan-banh');
       if (calcSection) {
         calcSection.scrollIntoView({ behavior: 'smooth' });
       }
@@ -384,6 +384,10 @@
     const questionBtn = item.querySelector('.faq-question');
     if (questionBtn) {
       questionBtn.addEventListener('click', () => {
+        // On desktop, GSAP desktop-scrollytelling handles smooth height & chevron animation
+        if (window.innerWidth >= 992 && typeof gsap !== 'undefined') {
+          return;
+        }
         const isOpen = item.classList.contains('active');
         // Close all others for senior clarity
         faqItems.forEach(other => other.classList.remove('active'));
