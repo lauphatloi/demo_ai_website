@@ -478,6 +478,8 @@ button {
   margin: 0 auto 24px auto;
 }
 
+ 
+
 .hero-cta-row {
   display: flex;
   justify-content: center;
@@ -2030,7 +2032,7 @@ button {
   }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 800px) {
   /* Top bar compact single-line */
   .top-bar {
     padding: 6px 0;
@@ -2093,7 +2095,7 @@ button {
     padding: 24px 0 34px 0;
   }
   .hero-title {
-    font-size: 1.65rem;
+    font-size: 1.2rem;
     line-height: 1.25;
   }
   .hero-subtitle {
@@ -2112,6 +2114,11 @@ button {
     gap: 8px;
     margin-top: 18px;
   }
+
+  .hero-desc {
+    display:none;
+  }
+
   .highlight-card {
     padding: 9px 10px;
     gap: 8px;
