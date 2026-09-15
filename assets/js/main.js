@@ -69,11 +69,12 @@
     link.addEventListener('click', closeMobileNav);
   });
 
-  // --- 3. HEADER SCROLL & BACK TO TOP ---
+  // --- 3. HEADER SCROLL, BACK TO TOP & FLOATING CONTACTS (30% SCROLL TRIGGER) ---
   const siteHeader = document.querySelector('.site-header');
   const backToTop = document.getElementById('back-to-top');
+  const floatingContacts = document.getElementById('floating-contact-group');
 
-  window.addEventListener('scroll', function () {
+  function handleScroll() {
     const scrollY = window.scrollY || window.pageYOffset;
     if (siteHeader) {
       siteHeader.classList.toggle('scrolled', scrollY > 40);
@@ -81,7 +82,18 @@
     if (backToTop) {
       backToTop.classList.toggle('visible', scrollY > 500);
     }
-  }, { passive: true });
+    if (floatingContacts) {
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      if (docHeight > 0) {
+        const scrollPercent = (scrollY / docHeight) * 100;
+        // Xuất hiện zoom lên khi cuộn được 30%
+        floatingContacts.classList.toggle('is-visible', scrollPercent >= 30);
+      }
+    }
+  }
+
+  window.addEventListener('scroll', handleScroll, { passive: true });
+  handleScroll();
 
   if (backToTop) {
     backToTop.addEventListener('click', function () {
