@@ -86,8 +86,8 @@
       const docHeight = document.documentElement.scrollHeight - window.innerHeight;
       if (docHeight > 0) {
         const scrollPercent = (scrollY / docHeight) * 100;
-        // Xuất hiện zoom lên khi cuộn được 20%
-        floatingContacts.classList.toggle('is-visible', scrollPercent >= 20);
+        // Xuất hiện zoom lên khi cuộn được 10%
+        floatingContacts.classList.toggle('is-visible', scrollPercent >= 10);
       }
     }
   }
