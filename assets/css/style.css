@@ -1756,19 +1756,19 @@ button {
   transition: color 0.2s;
 }
 
-/* Huy hiệu hỗ trợ 24/7 góc nút Zalo với chữ đỏ Honda nổi bật */
+/* Huy hiệu hỗ trợ 24/7 góc nút Zalo: Nền đỏ Honda, chữ trắng nổi bật */
 .zalo-badge-hot {
   position: absolute;
   top: -4px;
   right: -4px;
-  background: #ffffff;
-  color: #e4002b;
+  background: var(--color-primary, #e4002b);
+  color: #ffffff;
   font-size: 9.5px;
   font-weight: 800;
   padding: 1.5px 6px;
   border-radius: 99px;
-  border: 1px solid rgba(228, 0, 43, 0.35);
-  box-shadow: 0 2px 8px rgba(228, 0, 43, 0.2);
+  border: 1.5px solid #ffffff;
+  box-shadow: 0 2px 8px rgba(228, 0, 43, 0.35);
   line-height: 1.2;
   transition: all 0.2s;
 }
@@ -1785,9 +1785,10 @@ button {
 }
 
 .btn-zalo:hover .zalo-badge-hot {
-  background: #ffffff;
-  color: #e4002b;
-  border-color: #e4002b;
+  background: var(--color-primary, #e4002b);
+  color: #ffffff;
+  border-color: #ffffff;
+  transform: scale(1.05);
 }
 
 /* Nút 3: Hotline Gọi điện (Đen than chì sang trọng, icon trắng) */
@@ -1806,35 +1807,35 @@ button {
   box-shadow: 0 8px 22px rgba(15, 23, 42, 0.2);
 }
 
-/* VÒNG BÚNG RA MỎNG NHẸ THANH LỊCH (THIN OUTLINE RIPPLE) */
+/* VÒNG BÚNG RA MỎNG NHẸ THANH LỊCH (THIN OUTLINE RIPPLE - NHỎ GỌN) */
 .ripple-wave {
   position: absolute;
-  inset: -2px;
+  inset: -1px;
   border-radius: 50%;
   border: 1.2px solid var(--ripple-color);
   background: transparent;
   opacity: 0.75;
   pointer-events: none;
   z-index: 0;
-  animation: thin-ripple-spread 2.6s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+  animation: thin-ripple-spread 2.4s cubic-bezier(0.16, 1, 0.3, 1) infinite;
 }
 
 .ripple-wave.ripple-delay {
-  animation-delay: 0.9s;
+  animation-delay: 0.8s;
 }
 
 @keyframes thin-ripple-spread {
   0% {
-    transform: scale(0.96);
-    opacity: 0.7;
-    border-width: 1.5px;
+    transform: scale(1);
+    opacity: 0.75;
+    border-width: 1.2px;
   }
   50% {
-    opacity: 0.25;
+    opacity: 0.3;
     border-width: 1px;
   }
   100% {
-    transform: scale(1.68);
+    transform: scale(1.28);
     opacity: 0;
     border-width: 0.6px;
   }
