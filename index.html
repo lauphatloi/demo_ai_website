@@ -100,7 +100,7 @@
           HONDA LEAD 2026 THẾ HỆ MỚI<br>
           <span class="text-primary">ĐẲNG CẤP TIỆN NGHI</span> • VỮNG BƯỚC AN TÂM
         </h1>
-        <p class="hero-desc">
+        <p class="hero-desc" >
           Kế thừa công năng huyền thoại với nâng cấp <strong>Động cơ eSP+ 4 van êm ái</strong>, 
           <strong>Phanh an toàn ABS chống trượt</strong> và <strong>Cốp cực đại 37 Lít</strong> có đèn LED & vách ngăn. 
           Sự lựa chọn hoàn hảo cho mọi hành trình gia đình và công sở.
@@ -112,7 +112,7 @@
           </a>
           <a href="#dang-ky" class="btn btn-secondary btn-lg">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-            <span>Đăng Ký Lái Thử Tại HEAD</span>
+            <span>Đăng Ký Báo Giá Tại HEAD</span>
           </a>
         </div>
       </div>
@@ -451,25 +451,25 @@
           </div>
         </div>
 
-        <!-- 3. Nắp bình xăng trước -->
+        <!-- 3. Nắp bình xăng trước & Mặt đồng hồ LCD -->
         <div class="utility-mini-card">
-          <div class="mini-card-icon-box">
-            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#e4002b" stroke-width="2"><path d="M3 22V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v17"></path><path d="M15 11h2a2 2 0 0 1 2 2v7"></path><path d="M19 13v-2a2 2 0 0 0-2-2h-2"></path><circle cx="9" cy="9" r="2"></circle></svg>
+          <div class="mini-card-media">
+            <img src="assets/images/mat-dong-ho-hien-dai.avif" alt="Mặt đồng hồ LCD hiện đại & Nắp bình xăng tiện lợi" width="1500" height="794" loading="lazy" decoding="async">
           </div>
           <div class="mini-card-body">
             <h4>Nắp Bình Xăng Phía Trước 6.0L</h4>
-            <p>Đổ xăng không cần bước xuống xe hay mở cốp. Nhấn nút mở nắp xăng cạnh ổ khóa tiện lợi và kín đáo khi đi mưa.</p>
+            <p>Đổ xăng không cần bước xuống xe hay mở cốp. Cụm đồng hồ LCD hiện đại hiển thị mức xăng, đồng hồ giờ và hành trình trực quan.</p>
           </div>
         </div>
 
-        <!-- 4. Yên xe 760mm -->
+        <!-- 4. Chiều cao yên & Thiết kế đuôi xe -->
         <div class="utility-mini-card">
-          <div class="mini-card-icon-box" style="background: #f0f9ff; color: #0284c7;">
-            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><line x1="4" y1="22" x2="4" y2="15"></line></svg>
+          <div class="mini-card-media">
+            <img src="assets/images/thiet-ke-duoi-xe.avif" alt="Chiều cao yên 760mm & Thiết kế đuôi xe thon gọn" width="1500" height="794" loading="lazy" decoding="async">
           </div>
           <div class="mini-card-body">
             <h4>Chiều Cao Yên 760mm Tôn Dáng</h4>
-            <p>Đầu yên gọt thon gọn giúp người từ 1m50 chống chân vững chãi. Sàn để chân phẳng rộng rãi, chống bắn bùn bẩn.</p>
+            <p>Đầu yên gọt thon gọn kết hợp thiết kế đuôi xe vuốt nhọn tinh tế giúp người từ 1m50 chống chân vững chãi, tôn dáng thanh lịch.</p>
           </div>
         </div>
       </div>
@@ -781,17 +781,17 @@
         <form class="lead-form" id="test-ride-form">
           <div class="form-group">
             <label for="lead-name" class="form-label">Họ và tên của quý khách (*):</label>
-            <input type="text" id="lead-name" class="form-control" placeholder="Ví dụ: Nguyễn Văn An" required>
+            <input type="text" id="lead-name" name="name" class="form-control" placeholder="Ví dụ: Nguyễn Văn An" required autocomplete="name">
           </div>
 
           <div class="form-group">
             <label for="lead-phone" class="form-label">Số điện thoại liên hệ (*):</label>
-            <input type="tel" id="lead-phone" class="form-control" placeholder="Ví dụ: 0912 345 678" required>
+            <input type="tel" id="lead-phone" name="phone" class="form-control" placeholder="Ví dụ: 0912 345 678" required autocomplete="tel">
           </div>
 
           <div class="form-group">
             <label for="lead-version-select" class="form-label">Phiên bản xe quan tâm:</label>
-            <select id="lead-version-select" class="form-control">
+            <select id="lead-version-select" name="version" class="form-control">
               <option value="dac-biet">Phiên bản Đặc biệt (Trang bị phanh an toàn ABS)</option>
               <option value="cao-cap">Phiên bản Cao cấp (Trắng Đen thanh lịch)</option>
               <option value="tieu-chuan">Phiên bản Tiêu chuẩn (Đỏ Đen may mắn)</option>
@@ -800,7 +800,7 @@
 
           <div class="form-group">
             <label for="lead-city" class="form-label">Tỉnh / Thành phố sinh sống:</label>
-            <input type="text" id="lead-city" class="form-control" placeholder="Ví dụ: Hà Nội, TP.HCM, Đà Nẵng...">
+            <input type="text" id="lead-city" name="city" class="form-control" placeholder="Ví dụ: Hà Nội, TP.HCM, Đà Nẵng..." autocomplete="address-level1">
           </div>
 
           <button type="submit" class="btn btn-primary btn-lg form-submit-btn">

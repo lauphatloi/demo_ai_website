@@ -376,6 +376,9 @@
   });
 
   // --- 7. CONSULTATION / TEST RIDE FORM & MODAL ---
+  // Dán URL Web App sau khi triển khai Google Apps Script vào biến dưới đây:
+  const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz_REPLACE_WITH_YOUR_DEPLOYED_URL/exec';
+
   const testRideForm = document.getElementById('test-ride-form');
   const successModal = document.getElementById('success-modal');
   const modalCloseBtn = document.getElementById('modal-close-btn');
@@ -385,21 +388,82 @@
       e.preventDefault();
       const nameInput = document.getElementById('lead-name');
       const phoneInput = document.getElementById('lead-phone');
+      const versionSelect = document.getElementById('lead-version-select');
+      const cityInput = document.getElementById('lead-city');
+      const submitBtn = testRideForm.querySelector('button[type="submit"]');
 
-      if (!nameInput.value.trim() || !phoneInput.value.trim()) {
+      const nameVal = nameInput ? nameInput.value.trim() : '';
+      const phoneVal = phoneInput ? phoneInput.value.trim() : '';
+      const cityVal = cityInput ? cityInput.value.trim() : '';
+      const versionVal = versionSelect && versionSelect.options[versionSelect.selectedIndex]
+        ? versionSelect.options[versionSelect.selectedIndex].text
+        : (versionSelect ? versionSelect.value : '');
+
+      if (!nameVal || !phoneVal) {
         alert('Quý khách vui lòng điền đầy đủ Họ tên và Số điện thoại để nhân viên HEAD hỗ trợ.');
         return;
       }
 
-      // Show success modal
-      const modalCustomerName = document.getElementById('modal-customer-name');
-      if (modalCustomerName) {
-        modalCustomerName.textContent = nameInput.value.trim();
+      // Trạng thái đang gửi dữ liệu
+      const originalBtnHtml = submitBtn ? submitBtn.innerHTML : '';
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = `
+          <svg class="spin-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="6"></line><line x1="12" y1="18" x2="12" y2="22"></line><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"></line><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"></line><line x1="2" y1="12" x2="6" y2="12"></line><line x1="18" y1="12" x2="22" y2="12"></line><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"></line><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"></line></svg>
+          <span>Đang gửi thông tin...</span>
+        `;
       }
-      if (successModal) {
-        successModal.classList.add('open');
+
+      // Payload dữ liệu khách hàng
+      const payload = {
+        name: nameVal,
+        phone: phoneVal,
+        version: versionVal,
+        city: cityVal,
+        source: 'Website Honda LEAD 2026',
+        timestamp: new Date().toLocaleString('vi-VN')
+      };
+
+      function handleComplete() {
+        // Cập nhật tên khách hàng vào modal cảm ơn
+        const modalCustomerName = document.getElementById('modal-customer-name');
+        if (modalCustomerName) {
+          modalCustomerName.textContent = nameVal;
+        }
+        if (successModal) {
+          successModal.classList.add('open');
+        }
+        testRideForm.reset();
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = originalBtnHtml;
+        }
       }
-      testRideForm.reset();
+
+      // Kiểm tra nếu đã cài đặt URL Google Apps Script
+      const isScriptConfigured = GOOGLE_SCRIPT_URL && !GOOGLE_SCRIPT_URL.includes('REPLACE_WITH_YOUR_DEPLOYED_URL');
+
+      if (isScriptConfigured) {
+        fetch(GOOGLE_SCRIPT_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(payload)
+        })
+        .then(() => {
+          handleComplete();
+        })
+        .catch(err => {
+          console.warn('Gửi dữ liệu qua Google Apps Script (fallback):', err);
+          handleComplete();
+        });
+      } else {
+        // Chưa cấu hình URL: ghi log để nhà phát triển theo dõi và hiển thị modal thành công
+        console.log('Dữ liệu form (Chưa cấu hình GOOGLE_SCRIPT_URL):', payload);
+        setTimeout(handleComplete, 400);
+      }
     });
   }
 
