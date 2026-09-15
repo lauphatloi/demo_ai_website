@@ -375,9 +375,7 @@
     }
   });
 
-  // --- 7. CONSULTATION / TEST RIDE FORM & MODAL ---
-  // Dán URL Web App sau khi triển khai Google Apps Script vào biến dưới đây:
-  const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz_REPLACE_WITH_YOUR_DEPLOYED_URL/exec';
+  const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx3ym1h4o5sBnBZ12Ad1xTyN8NNCA4MjZevhchmPxD71PL-hHm6xpAdIATIJVKRmx8h/exec';
 
   const testRideForm = document.getElementById('test-ride-form');
   const successModal = document.getElementById('success-modal');
