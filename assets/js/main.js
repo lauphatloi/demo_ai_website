@@ -262,23 +262,30 @@
       });
     }
 
-    // Render mini specs
+    // Render mini specs (concise checklist)
     if (colorSpecsContainer) {
       colorSpecsContainer.innerHTML = version.features.map(f => `
         <div class="spec-mini-item">
-          <span class="spec-mini-label">Trang bị nổi bật</span>
+          <span class="spec-mini-icon">✓</span>
           <span class="spec-mini-val">${f}</span>
         </div>
       `).join('');
     }
 
-    // Update CTA text to hotline call
+    // Keep Hotline button concise and focused
     if (btnSelectThisColor) {
       btnSelectThisColor.innerHTML = `
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-        <span>Báo Giá ${version.name}: Gọi 0329 701 818</span>
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+        <span>Hotline</span>
       `;
       btnSelectThisColor.setAttribute('href', 'tel:0329701818');
+      btnSelectThisColor.setAttribute('title', `Gọi Hotline tư vấn ${version.name}: 0329 701 818`);
+    }
+
+    // Synchronize selected version with registration form
+    const leadVersionSelect = document.getElementById('lead-version-select');
+    if (leadVersionSelect && leadVersionSelect.value !== versionKey) {
+      leadVersionSelect.value = versionKey;
     }
   }
 
